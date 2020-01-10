@@ -8,7 +8,7 @@ trait DB {
   def db: config.backend.Database
 }
 
-trait PostrgesDB extends DB {
+trait PostgresDB extends DB {
   override lazy val config: JdbcProfile = slick.jdbc.PostgresProfile
   override lazy val db: config.backend.Database = config.api.Database.forConfig("postgres")
 }
