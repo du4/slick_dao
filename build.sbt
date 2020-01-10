@@ -29,7 +29,15 @@ lazy val mainDao =
     .settings(
       libraryDependencies ++= slick ++ Seq(h2)
     )
-    .dependsOn(tables)
+    .dependsOn(
+      db % "compile->compile;test->test",
+      tables
+    )
+
+lazy val db = simpleProject("db")
+  .settings(
+    libraryDependencies ++= Seq(postgres, h2) ++ slick
+  )
 
 lazy val tables = {
   lazy val generatorSettings = Seq(
