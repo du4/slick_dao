@@ -1,11 +1,9 @@
-package com.du4
+package com.du4.db
 
-import com.du4.db.DB
 import com.typesafe.config.ConfigFactory
 import slick.jdbc.JdbcProfile
 
 import scala.concurrent.ExecutionContext
-
 
 trait H2DB extends DB {
   override lazy val config: JdbcProfile = slick.jdbc.H2Profile
