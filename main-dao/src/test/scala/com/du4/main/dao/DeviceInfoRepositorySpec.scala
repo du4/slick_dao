@@ -50,6 +50,22 @@ class DeviceInfoRepositorySpec extends Matchers
 
       repo.getAll().futureValue shouldBe List()
     }
+
+    "getOrInsert deviceInfo by returning existing info if it is already exits" in new TestContext with Fixtures {
+      val di = DeviceinfoRow(3L, Some(500))
+
+      repo.getOrInsert(di).futureValue shouldBe deviceInfo3
+
+      Deviceinfo.containsOnlyAll(List(deviceInfo1, deviceInfo2, deviceInfo3))
+    }
+
+    "getOrInsert deviceInfo by inserting passed info if it does not exist yet" in new TestContext with Fixtures {
+      val di = DeviceinfoRow(4L, Some(500))
+
+      repo.getOrInsert(di).futureValue shouldBe DeviceinfoRow(4L, Some(500))
+
+      Deviceinfo.containsOnlyAll(List(deviceInfo1, deviceInfo2, deviceInfo3, di))
+    }
   }
 
 }
